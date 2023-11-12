@@ -12,7 +12,9 @@ Typical usage examples:
     myCrane.run()
     myCrane.rot_sensor()
 """
-import socket
+
+# import socket
+from socket import gethostname, gethostbyname, socket
 import random
 from typing import Any
 
@@ -42,7 +44,9 @@ class Crane:
             Args:
                 unit_id: ID of the implemented Modbus Server instance
         """
+        self._crane_mb_server: ModbusTCPServer
         self.unit_id = unit_id
+        self._crane_mb_data: TestingDataSource = TestingDataSource()
 
     async def run_crane(self) -> None:
         """Run the crane instance simulation
@@ -50,20 +54,20 @@ class Crane:
         Call this method with no arguments to run the crane simulation. It will set up a Modbus server and cycle
          through an eternal loop, providing random measurements for temperature via Modbus & NMEA ROT Sensor data.
         """
-        await self.__initialize_modbus_server()
-        server_sock = await self.__init_server_sock(self.nmea_port)
+        await self._initialize_modbus_server()
+        server_sock = await self._init_server_sock(self.nmea_port)
         q1 = asyncio.Queue()
         q2 = asyncio.Queue()
         _, _, client_sock, client_addr = asyncio.create_task(self.connect_nmea_client(server_sock))
         while True:
             # producers
-            mb_producers = [asyncio.create_task(self.__mb_sensor(self.unit_id, i, q1) for i in range(4))]
+            mb_producers = [asyncio.create_task(self._mb_sensor(self.unit_id, i, q1) for i in range(4))]
             nmea_producer = asyncio.create_task(self.rot_sensor("CR", q2))
             mb_consumer = asyncio.create_task(self.write_mb_data(q1))
             nmea_consumer = asyncio.create_task(self.transmit_nmea(q2, client_sock))
 
     @staticmethod
-    async def __mb_sensor(unit_id: int, data_adr: int, q: asyncio.Queue) -> None:
+    async def _mb_sensor(unit_id: int, data_adr: int, q: asyncio.Queue) -> None:
         """Write random sensor measurement to Modbus Server
 
         This is a private method to write a sensor measurement to the Crane's Modbus Server Database.
@@ -78,7 +82,7 @@ class Crane:
         meas_val = random.randrange(20, 90, 1)
         measurement = {"unit_id": unit_id, "data_adr": data_adr, "meas_val": meas_val}
         await q.put(measurement)
-        await asyncio.sleep(2)
+        await asyncio.sleep(2)  # in seconds
         return
 
     @staticmethod
@@ -112,7 +116,7 @@ class Crane:
         Returns:
             client_sock, client_addr (tuple[socket.socket, Any]): Return the client details (socket & address)
         """
-        server.listen(3)
+        server.listen(1)
         client_sock, client_addr = server.accept()
         return client_sock, client_addr
 
@@ -143,7 +147,7 @@ class Crane:
         client_sock.sendall(nmea_message.encode())
         return
 
-    async def __initialize_modbus_server(self):
+    async def _initialize_modbus_server(self):
         """Initialize and start a Modbus server instance
 
         Private method to initialize the Modbus Server instance with the host device's socket (i.e. local host)
@@ -156,7 +160,7 @@ class Crane:
         return
 
     @staticmethod
-    async def __init_server_sock(port: int) -> socket.socket:
+    async def _init_server_sock(port: int) -> socket:
         """Initialize the websocket for data streaming"""
         host_name = socket.gethostname()
         host = socket.gethostbyname(host_name)
