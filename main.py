@@ -1,14 +1,12 @@
 from crane_simulation.sensors import Crane
-import continuous_threading
+from crane_simulation import NmeaServer
+import asyncio
 
 
 if __name__ == '__main__':
-    My_Crane = Crane(1)
+    # My_Crane = Crane(1)
     # My_Crane.run_crane()
-    print(My_Crane.rot_sensor().render())
-    try:
-        #sensor_thread = continuous_threading.Thread(target=temp_sensor, name="Sensor_Thread")
-        #sensor_thread.start()
-        pass
-    except:
-        print("Unable to start thread")
+    # Server = NmeaServer()
+    loop = asyncio.get_event_loop()
+    server = NmeaServer('127.0.0.1',8888, loop)
+    asyncio.run(Server.initiate_async_server())
