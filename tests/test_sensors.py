@@ -3,7 +3,7 @@ from unittest.mock import MagicMock
 from unittest.mock import patch
 # import pytest
 # import pytest_mock
-from src.crane_simulation.sensors import Crane
+# from src.crane_simulation.sensors import Crane
 
 
 # from crane_simulation.sensors import rot_sensor
