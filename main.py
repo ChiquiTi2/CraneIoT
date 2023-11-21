@@ -1,5 +1,4 @@
-from crane_simulation.sensors import Crane
-from crane_simulation import NmeaServer
+from src.crane_simulation import NmeaServer
 import asyncio
 
 
