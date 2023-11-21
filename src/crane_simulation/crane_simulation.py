@@ -1,4 +1,7 @@
 import asyncio
+
+import pynmea2
+
 import mb_server_sim
 import nmea_server_sim
 
@@ -23,4 +26,5 @@ async def async_manager() -> None:
 
 
 if __name__ == "__main__":
-    asyncio.run(async_manager())
+    print(pynmea2.ROT("MG","ROT",("32.0","A")))
+    #asyncio.run(async_manager())

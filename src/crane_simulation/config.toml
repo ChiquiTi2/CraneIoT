@@ -1,7 +1,0 @@
-[modbus_server]
-    host = "localhost"
-    port = 8889
-    no_measurements = 4
-    rand_range = [1,100]
-[nmea_server]
-    talker = "MG"

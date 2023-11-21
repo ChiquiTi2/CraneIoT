@@ -46,7 +46,6 @@ def sim_nmea_rot_measurement(talker: str = "MG") -> str:
 
     Args:
         talker: talker (i.e. sender) id of the NMEA sentence, by default "MG"
-        sentence_type: type of the NMEA sentence, by default "ROT"; it defines also the format of the sentence itself
 
     Returns:
 
@@ -57,5 +56,5 @@ def sim_nmea_rot_measurement(talker: str = "MG") -> str:
         Message end also contains Line Feed & carriage return
     """
     measurement = float(random.randrange(1,360,1))
-    nmea_message = pynmea2.ROT(talker=talker,sentence_type="ROT", data=(str(measurement), ))
+    nmea_message = pynmea2.ROT(talker=talker, sentence_type="ROT", data=(str(measurement), "A"))
     return nmea_message.render()
