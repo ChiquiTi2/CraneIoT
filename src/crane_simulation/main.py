@@ -1,5 +1,6 @@
 import asyncio
-import mvp_server
+import mb_server_sim
+import nmea_server_sim
 
 
 async def async_manager() -> None:
@@ -10,8 +11,8 @@ async def async_manager() -> None:
     simulated measurements via NMEA. For the NMEA messages, the asyncio.start_server function is used, based on an
     underlying websocket. The server is supposed to run forever unless the program is stopped by Keyboard interrupt.
     """
-    asyncio.create_task(mvp_server.handle_mb_server_sim(port=8889, no_measurements=4))
-    server = await asyncio.start_server(mvp_server.handle_nmea_client, '127.0.0.1', 8888)
+    asyncio.create_task(mb_server_sim.handle_mb_server_sim(port=8889, no_measurements=4))
+    server = await asyncio.start_server(nmea_server_sim.handle_nmea_client, '127.0.0.1', 8888)
     addr = server.sockets[0].getsockname()
     print(f"Serving on {addr}")
     try:
