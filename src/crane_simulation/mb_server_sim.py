@@ -10,6 +10,9 @@ async def handle_mb_server_sim(host: str = "localhost", port: int = 502,
     This function initiates & keeps a Modbus TCP server running forever on the host & port provided, or default values.
     It will simulate measurements & write them to the holding registers, starting to count from register 0.
 
+    Typical usage examples:
+        asyncio.create_task(mb_server_sim.handle_mb_server_sim(port=8889, no_measurements=4))
+
     Args:
         host: information on the supposed host to run the Modbus Server on; by default it is `localhost`
         port: The port at which the Modbus server should serve; by default it is 502 (standard Modbus port)
