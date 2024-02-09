@@ -1,0 +1,15 @@
+continuous-threading==2.0.6
+iniconfig==2.0.0
+mock==5.1.0
+modbus-tcp-server==0.6
+packaging==23.2
+pip==23.2.1
+pluggy==1.3.0
+psutil==5.9.6
+pyModbusTCP==0.2.0
+pynmea2==1.19.0
+pytest-mock==3.12.0
+pytest==7.4.3
+satella==2.23.3
+setuptools==68.2.2
+wheel==0.41.2

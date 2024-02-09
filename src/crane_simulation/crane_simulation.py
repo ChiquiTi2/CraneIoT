@@ -26,5 +26,4 @@ async def async_manager() -> None:
 
 
 if __name__ == "__main__":
-    print(pynmea2.ROT("MG","ROT",("32.0","A")))
-    #asyncio.run(async_manager())
+    asyncio.run(async_manager())

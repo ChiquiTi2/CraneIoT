@@ -1,0 +1,41 @@
+# pyproject.toml
+
+[build-system]
+requires = ["setuptools>=68.2.2", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "Crane-IoT-Simulator"
+version = "0.0.1"
+description = ""
+readme = "README.md"
+
+
+
+
+requires-python = ">=3.11"
+authors = [
+    {name = "Benjamin Bischoff", email = "bischoff94@gmx.de"}
+]
+maintainers = [
+    {name = "Benjamin Bischoff", email = "bischoff94@gmx.de"}
+]
+classifiers = [
+    "Programming Language :: Python :: 3.12",
+]
+dependencies = [
+    "pytest == 7.4.3",
+    "pytest-cov == 4.1.0",
+    "pynmea2 == 1.19.0",
+    "pyModbusTCP == 0.2.0",
+    "paho-mqtt == 1.6.1"
+]
+version = "0.0.0"
+
+[project.scripts]
+
+[tool.pytest.ini_options]
+minversion = "7.4.3"
+addopts = "-rA -vv --cov=src/pyhvc --cov-report html --cov-append --cov-branch"
+testpaths = [
+    "tests",
