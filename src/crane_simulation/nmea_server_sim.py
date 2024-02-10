@@ -56,5 +56,6 @@ def sim_nmea_rot_measurement(talker: str = "MG") -> str:
         Message end also contains Line Feed & carriage return
     """
     measurement = float(random.randrange(1,360,1))
-    nmea_message = pynmea2.ROT(talker=talker, sentence_type="ROT", data=(str(measurement), "A"))
+    nmea_message = pynmea2.ROT(talker=talker, sentence_type="ROT", data=(str(measurement),
+                                                                         random.choice(["A", "A", "A", "A", "V"])))
     return nmea_message.render()
