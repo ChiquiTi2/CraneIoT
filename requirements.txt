@@ -13,3 +13,4 @@ pytest==7.4.3
 satella==2.23.3
 setuptools==68.2.2
 wheel==0.41.2
+build==1.0.3
