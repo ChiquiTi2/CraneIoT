@@ -6,4 +6,4 @@ Modules:
 """
 # from .sensors import Crane
 # from .nmea_server_sim import NmeaServer
-__version__ = '0.1'
+__version__ = '0.2'
